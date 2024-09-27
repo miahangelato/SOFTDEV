@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Confirm Order</h1>
+    <div class="row">
+        <div class="col-8">
+            <h2>Order Summary</h2>
+
+            {% for key, item in cart.items %}
+                <div class="row">
+                    <div class="col-6">
+                        <img src="{{ item.image }}" alt="{{ item.name }}" class="img-fluid">
+                        <p>{{ item.name }}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Quantity: {{ item.quantity }}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Total: ${{ item.total_price }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+        <div class="col-4">
+            <h2>Total</h2>
+            <p>Total Cost: ${{ total_cost }}</p>
+            <h2>Shipping</h2>
+            <p>{{ shipping.address }}, {{ shipping.city }}, {{ shipping.country }}, {{ shipping.postal_code }}</p>
+            <h2>Payment</h2>
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+
+
+
+<script src="https://www.paypal.com/sdk/js?client-id=AaucYPMaRFUh-_oxSoxOl5wSEZEgHaFUfVqopKBgVd2kabPxvSmW1j6ZZymBkLq7y8ryclXS9YVLQWwB&components=buttons"></script>
+
+
+
+<script>
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{ total_cost }}'
+                    }
+                }]
+            });
+        },
+
+        onApprove: function (data, actions) {
+        style: {
+            layout: 'vertical',
+            shape: 'rect',
+            color: 'silver',
+            height: 40,
+            tagline: false,
+            windowSize: 'small'
+        },
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}
+

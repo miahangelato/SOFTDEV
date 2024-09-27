@@ -1,0 +1,74 @@
+<div class="container mt-5">
+    <!-- Search Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4>Search Products</h4>
+            <form method="GET" action="{% url 'index' %}" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search for products..." value="{{ search_query }}"> {% if selected_category %}
+                    <!-- Keep category in the URL if it is already selected -->
+                    <input type="hidden" name="category" value="{{ selected_category }}"> {% endif %}
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+
+            <h4>Price filter</h4>
+            <!-- <form method="GET" action="{% url 'index' %}">
+                <div class="input-group">
+                    <input type="number" name="min_price" class="form-control" placeholder="Min price" value="{{ min_price }}"> {% if selected_category %} -->
+            <!-- Keep category in the URL if it is already selected -->
+            <!-- <input type="hidden" name="category" value="{{ selected_category }}"> {% endif %}
+                    <input type="number" name="max_price" class="form-control" placeholder="Max price" value="{{ max_price }}">
+                    <button class="btn btn-primary" type="submit">Filter</button>
+                </div> -->
+
+
+            <form method="GET" action="{% url 'index' %}">
+                <div data-role="rangeslider">
+                    <label for="price-min">Price:</label>
+                    <input type="range" name="minPrice" class="form-control" placeholder="Min price" value="{{price_min}}" min="{{min_price}}" max="{{ max_price }}">
+                    <label for=" price-max ">Price:</label>
+                    <input type="range " name="maxPrice" class="form-control " placeholder="Max price " value="{{ price_max }} " min="{{min_price}}" max="{{ max_price }}">
+                </div>
+                <button type="submit " data-inline="true ">Submit</button>
+            </form>
+
+            <h4>Categories</h4>
+            <div class="btn-group " role="group " aria-label="Categories ">
+                <!-- Link to show all products -->
+                <a href="{% url 'index' %} " class="btn btn-outline-primary {% if not selected_category %}active{% endif %} ">All Products</a>
+
+                <!-- Loop through categories to create clickable links -->
+                {% for category in category_list %}
+                <a href="{% url 'index' %}?category={{ category.id|urlencode }} " class="btn btn-outline-primary {% if selected_category == category %}active{% endif %} ">
+                        {{ category }}
+                    </a> {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="row ">
+        {% for product in products %}
+        <div class="col-md-4 mb-4 ">
+            <a href="{% url 'viewProduct' product.id %} " class="text-decoration-none text-dark ">
+                <div class="card h-100 shadow-sm ">
+                    <img src="{{ product.image.url }} " class="card-img-top " alt="{{ product.name }} " style="height: 250px; object-fit: cover; ">
+                    <div class="card-body d-flex flex-column ">
+                        <h5 class="card-title ">{{ product.name }}</h5>
+                        <p class="card-text "><strong>Price:</strong> ${{ product.price }}</p>
+                        <p class="card-text "><strong>Category:</strong> {{ product.category }}</p>
+                        <p class="card-text ">{{ product.description|truncatewords:20 }}</p>
+                        <div class="mt-auto "></div>
+                    </div>
+                    <div class="card-footer text-muted ">
+                        Seller: {{ product.seller.username }}
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <p>No products found.</p>
+        {% endfor %}
+    </div>
+</div>
