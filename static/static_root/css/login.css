@@ -1,0 +1,106 @@
+.custom-container {
+    max-width: 75rem; /* 1200px -> 75rem */
+    margin: 0 auto;
+    height: 100%; /* Ensure the container fills available space */
+}
+
+.custom-section {
+    padding: 8rem;
+    height: 100vh; /* Make section take full viewport height */
+    display: flex;
+    align-items: stretch; /* Stretch items to full height */
+}
+
+.custom-card {
+    border: 0.0625rem solid #ccc; 
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px -> 0.25rem, 8px -> 0.5rem */
+}
+
+.custom-row {
+    display: flex;
+}
+
+.custom-left-side {
+    background-color: #000;
+    color: #fff;
+    padding: 2rem;
+    
+}
+
+
+.custom-align-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.custom-col {
+    text-align: center;
+}
+
+.custom-img {
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+.custom-hr {
+    border: 0.0625rem solid white; /* 1px -> 0.0625rem */
+}
+
+.custom-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.custom-text {
+    font-size: 1.25rem;
+}
+
+.custom-card-body {
+    padding: 2rem;
+}
+
+.custom-header {
+    margin-bottom: 2rem;
+}
+
+.custom-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-btn {
+    background-color: black;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    margin:1rem;
+    border: none;
+    cursor: pointer;
+    width: 80%; /* 80% of container */
+}
+
+.custom-footer {
+    margin-top: 2rem;
+}
+
+.custom-footer-hr {
+    border: 0.0625rem solid #9f9e9e; /* 1px -> 0.0625rem */
+}
+
+.custom-footer-links {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.custom-link {
+    margin: 1rem; /* 1rem stays the same */
+    margin-left: 4rem;
+    color: rgb(97, 95, 95);
+    text-decoration: none;
+}
+
+.custom-link:hover {
+    text-decoration: underline;
+    color: grey;
+}
