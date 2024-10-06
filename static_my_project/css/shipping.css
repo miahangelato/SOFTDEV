@@ -1,0 +1,64 @@
+/* Container for both the heading and the form */
+/* Container for both the heading and the form */
+.shipping-container {
+    max-width: 500px;
+    margin: 40px auto; /* Adjusted margin to add space at the top */
+    padding: 25px;
+    background-color: rgb(255, 255, 255); /* White background */
+    border: 2px solid #000000; /* Border around the entire container */
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center text for heading and description */
+}
+
+
+/* Heading styling */
+.shipping-container h1 {
+    color: black;
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
+/* Description styling */
+.shipping-container .form-description {
+    color: black;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* Form styling */
+.shipping-container .shipping-form {
+    width: 100%;
+}
+
+/* Form group styling for left alignment */
+.shipping-container .form-group {
+    text-align: left; /* Left-align labels and inputs */
+    margin-bottom: 15px; /* Space between form groups */
+}
+
+/* Label styling */
+.shipping-container .form-group label {
+    display: block; /* Make label a block element for proper alignment */
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+/* Input styling */
+.shipping-container .shipping-form input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Submit button */
+.shipping-container .shipping-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
