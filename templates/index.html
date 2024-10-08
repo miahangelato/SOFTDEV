@@ -1,12 +1,12 @@
 {% extends 'base.html' %}{%load static%} {% block content %}
 
-<h1>Home</h1>
+<!-- <h1>Home</h1> -->
 
 {% include 'products/productsList.html' %}
 
-<form method="POST" action="{% url 'logout' %}">
+<!-- <form method="POST" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit" class="btn btn-primary">Logout</button>
-</form>
+</form> -->
 
-<a href="{% url 'createProduct' %}" class="btn btn-primary mt-3">Create Product</a> {% endblock %}
+<!-- <a href="{% url 'createProduct' %}" class="btn btn-primary mt-3">Create Product</a> {% endblock %} -->
