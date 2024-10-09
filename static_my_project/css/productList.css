@@ -1,14 +1,14 @@
 .search-form {
     margin: 1rem auto;
-    margin-bottom: 2rem; 
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     padding: 0.875rem;
     border-radius: 1rem;
     background: #f6f6f6;
     transition: background 0.25s;
-    max-width: 100rem; 
-    width: 100%; 
+    max-width: 100rem;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -18,13 +18,15 @@
 
 .search-input-product {
     font-size: 1rem;
-    font-weight: bold; /* Changed to font-weight */
+    font-weight: bold;
+    /* Changed to font-weight */
     color: #333;
     margin-right: 0.875rem;
     background: transparent;
     outline: none;
     border: none;
-    flex: 1; /* Allow the input to grow */
+    flex: 1;
+    /* Allow the input to grow */
 }
 
 .search-input-product::placeholder {
@@ -34,13 +36,12 @@
 .product-cat-text a {
     margin: 0.3rem;
     text-decoration: none;
-    color: white; 
+    color: white;
     font-size: 1.2rem;
     font-style: bold;
 }
 
-
-.sidebar-hr{
+.sidebar-hr {
     border: 0.05rem solid rgb(110, 110, 110);
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
@@ -50,14 +51,19 @@
     font-size: 5rem;
     text-align: center;
     display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
-    min-height: 50vh; /* Minimum height to center it vertically */
-    grid-column: 1 / -1; /* Spans sa buong grid */
+    justify-content: center;
+    /* Horizontally center */
+    align-items: center;
+    /* Vertically center */
+    min-height: 50vh;
+    /* Minimum height to center it vertically */
+    grid-column: 1 / -1;
+    /* Spans sa buong grid */
 }
 
 
 /* Set the layout of the products and sidebar as a grid */
+
 .products {
     display: grid;
     grid-template-columns: 20rem 1fr;
@@ -72,12 +78,24 @@
     padding: 1.5rem;
     border-radius: 0.8rem;
     border: 1px solid #ccc;
-    height: auto; /* Ensures it only grows with content */
+    height: auto;
+    /* Ensures it only grows with content */
     text-align: center;
-    align-self: start; /* Aligns the sidebar to the start of the row */
+    align-self: start;
+    /* Aligns the sidebar to the start of the row */
 }
 
+.card {
+    width: 444px;
+}
+
+body {
+    background: #eee;
+}
+
+
 /* Product Items styling */
+
 .product-items {
     padding: 3.2rem 0;
 }
@@ -90,7 +108,7 @@
 .product-info {
     background: #f2f2f2;
     padding: 2rem;
-    border: 0.05rem solid  #f2f2f2;
+    border: 0.05rem solid #f2f2f2;
     border-bottom-left-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
 }
@@ -105,48 +123,51 @@
     font-weight: bold;
 }
 
+
 /* Grid layout for product items */
+
 @media screen and (max-width: 600px) {
     .products {
-        grid-template-columns: 1fr; /* One column on mobile */
-        grid-template-rows: auto auto; /* Stack sidebar on top */
+        grid-template-columns: 1fr;
+        /* One column on mobile */
+        grid-template-rows: auto auto;
+        /* Stack sidebar on top */
     }
-
     .product-sidebar {
-        grid-row: 1; /* Sidebar will appear on top */
-        padding: 0.5rem; /* Reduced padding for mobile view */
-        width: 95%; /* Set a specific width (you can adjust this value) */
+        grid-row: 1;
+        /* Sidebar will appear on top */
+        padding: 0.5rem;
+        /* Reduced padding for mobile view */
+        width: 95%;
+        /* Set a specific width (you can adjust this value) */
         margin: 0 auto;
     }
-
     .product-items {
-        grid-row: 2; /* Product items will be below the sidebar */
-        padding: 0; /* Adjust padding if needed for mobile */
+        grid-row: 2;
+        /* Product items will be below the sidebar */
+        padding: 0;
+        /* Adjust padding if needed for mobile */
     }
-
     .product {
-        margin: 1rem 0; /* Adjust margins for mobile view */
+        margin: 1rem 0;
+        /* Adjust margins for mobile view */
     }
-    
     .search-form {
-        width: 95%; /* Allow more space on smaller screens */
+        width: 95%;
+        /* Allow more space on smaller screens */
     }
-
     .product-cat-text a {
         margin: 0rem;
         text-decoration: none;
-        color: white; 
+        color: white;
         font-size: 0.9rem;
     }
-    
-    .sidebar-hr{
+    .sidebar-hr {
         border: 0.02rem solid rgb(110, 110, 110);
         margin-top: 0.05rem;
         margin-bottom: 0.05rem;
     }
-    
 }
-
 
 @media screen and (min-width: 992px) {
     .product-items {
@@ -154,7 +175,8 @@
         grid-template-columns: repeat(2, 1fr);
     }
     .search-form {
-        width: 70%; /* Increase width on large screens */
+        width: 70%;
+        /* Increase width on large screens */
     }
 }
 
@@ -162,16 +184,14 @@
     .product-items {
         grid-template-columns: repeat(3, 1fr);
     }
-
     .product {
         margin-right: 1rem;
         margin-left: 1rem;
     }
     .search-form {
-        width: 60%; /* Further increase width on extra-large screens */
+        width: 60%;
+        /* Further increase width on extra-large screens */
     }
-
-    
 }
 
 @media screen and (min-width: 1336px) {
@@ -180,9 +200,12 @@
     }
 }
 
+
 /* Additional adjustments for screens smaller than 600px */
+
 @media screen and (max-width: 600px) {
     .search-form {
-        width: 95%; /* Allow more space on smaller screens */
+        width: 95%;
+        /* Allow more space on smaller screens */
     }
 }
