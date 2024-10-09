@@ -14,7 +14,6 @@ urlpatterns = [
     path('review/<int:pk>/', createReview, name='review'),
     path('review/delete/<int:pk>/', deleteReview, name='deleteReview'),
     path('shipping/', shipping_view, name='shipping'),
-    path('payment/', payment_view, name='payment'),
     path('confirm-order/', confirm_order, name='confirm_order'),
     path('order-complete/', order_complete, name='order_complete'),
 ]

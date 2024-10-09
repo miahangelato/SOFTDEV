@@ -77,3 +77,4 @@ class OrderForm(form.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
+

@@ -1,56 +1,74 @@
-<!-- productsDetail.html -->
 {% extends 'base.html' %} {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <!-- Product Image -->
-        <div class="col-md-6">
-            <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" style="max-height: 400px; object-fit: cover;">
-        </div>
-
-        <!-- Product Details -->
-        <div class="col-md-6">
-            <h2>{{ product.name }}</h2>
-            <p><strong>Price:</strong> ${{ product.price }}</p>
-            <p><strong>Description:</strong> {{ product.description }}</p>
-            <p><strong>Seller:</strong> {{ product.seller.username }}</p>
-
-            <!-- Back to Products Button -->
-            <a href="{% url 'index' %}" class="btn btn-primary mt-3">Back to Products</a>
-
-            <a href="{% url 'updateProduct' product.id %}" class="btn btn-secondary mt-3">Update Product</a>
-
-            <!-- Delete Product Button -->
-            <form method="POST" action="{% url 'deleteProduct' product.id %}" class="d-inline">
-                {% csrf_token %} <button type="submit" class="btn btn-danger mt-3">Delete Product</button>
-            </form>
-
-            <!-- Add to Cart Button -->
-            <form method="POST" action="{% url 'addToCart' product.id %}" class="d-inline">
-                {% csrf_token %} <button type="submit" class="btn btn-success mt-3">Add to Cart</button>
-            </form>
-
-            <!-- Review Form Button-->
-            <form method="POST" action="{% url 'review' product.id %}" class="d-inline">
-                {% csrf_token %} <button type="submit" class="btn btn-success mt-3">Review</button>
-            </form>
-
-            {% for foo in reviews %}
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ foo.user.username }}</h5>
-                    <p class="card-text">{{ foo.review }}</p>
-                    <p class="card-text">{{ foo.rating }}</p>
-                </div>
+<!-- Product section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-6">
+                <img src="{{ product.image.url }}" class="card-img-top mb-5 mb-md-0" alt="{{ product.name }}" style="max-height: 600px; object-fit: cover;" />
             </div>
 
-            <form method="POST" action="{% url 'deleteReview' foo.id %}" class="d-inline">
-                {% csrf_token %} <button type="submit" class="btn btn-danger mt-3">Delete Review</button>
-            </form>
+            <!-- Product Details -->
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                <div class="fs-5 mb-5">
+                    <span class="text-muted">${{ product.price }}</span>
+                </div>
+                <p class="lead">{{ product.description }}</p>
+                <p><strong>Seller:</strong> {{ product.seller.username }}</p>
 
+                <div class="d-flex">
+                    <form method="POST" action="{% url 'addToCart' product.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
+                    </form>
+                </div>
 
-            {% endfor %}
+                <!-- Back to Products Button -->
+                <a href="{% url 'index' %}" class="btn btn-primary mt-3">Back to Products</a>
 
+                <!-- Update Product Button (For Seller) -->
+                <a href="{% url 'updateProduct' product.id %}" class="btn btn-secondary mt-3">Update Product</a>
+
+                <!-- Delete Product Button (For Seller) -->
+                <form method="POST" action="{% url 'deleteProduct' product.id %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger mt-3">Delete Product</button>
+                </form>
+
+                <!-- Review Button -->
+                <form method="POST" action="{% url 'review' product.id %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success mt-3">Review</button>
+                </form>
+                <a href="{% url 'chats'%}?user={{product.seller.username}}"><button class="btn btn-warning mt-3">Chat with Seller</button></a>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Reviews section -->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 my-5">
+        <h2 class="fw-bolder mb-4">Reviews</h2>
+        {% for foo in reviews %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ foo.user.username }}</h5>
+                <p class="card-text">{{ foo.review }}</p>
+                <p class="card-text">Rating: {{ foo.rating }}/5</p>
+
+                <form method="POST" action="{% url 'deleteReview' foo.id %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete Review</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
 {% endblock %}

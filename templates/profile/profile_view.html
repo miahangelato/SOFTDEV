@@ -1,0 +1,53 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.user.username }}'s Profile</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <h1>{{ profile.user.username }}'s Profile</h1>
+            <div class="profile-picture">
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <h2>Products Posted by {{ profile.user.username }}</h2>
+            <ul>
+                {% for product in products %}
+                <li>{{ product.name }} - {{ product.price }} USD - Posted on {{ product.created_at }}</li>
+                {% empty %}
+                <li>No products posted yet.</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Orders</h2>
+            <ul>
+                {% for order in orders %}
+                <li>Order #{{ order.id }} - {{ order.total_price }} USD - Status: {{ order.status }}</li>
+                {% empty %}
+                <li>No orders found.</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Reviews</h2>
+            <ul>
+                {% for review in reviews %}
+                <li>{{ review.product.name }} - {{ review.rating }} stars - "{{ review.comment }}"</li>
+                {% empty %}
+                <li>No reviews made.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

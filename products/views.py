@@ -175,7 +175,8 @@ def removeCartItem(request, pk):
     return redirect('cart')
 
 def shipping_view(request):
-    form = ShippingForm()
+    shipping_form = ShippingForm()
+    payment_form = PaymentForm()
     
     if not request.user.is_authenticated:
         return redirect('login')
@@ -183,46 +184,33 @@ def shipping_view(request):
 
     if request.method == 'POST':
         print('Shipping', request.POST)
-        form = ShippingForm(request.POST)
+        shipping_form = ShippingForm(request.POST)
         shipping = request.session.get('shipping', {})
-        if form.is_valid():
-            for k, v in form.cleaned_data.items():
-                shipping[k] = v
-
-                print(shipping)
-            return redirect('payment')
-        request.session['shipping'] = shipping
-    return render(request, 'cart/shipping.html', {'form': form})
-
-def payment_view(request):
-    form = PaymentForm()
-
-    # print(payment)
-    # print(request.POST['payment'])
-    if not request.user.is_authenticated:
-        return redirect('login')
-
-    if request.method == 'POST':
-        form = PaymentForm(request.POST)
+        payment_form = PaymentForm(request.POST)
         payment = request.session.get('payment', {})
-        if form.is_valid():
-            print(form.cleaned_data)
-            payment['payment'] = form.cleaned_data['payment']
+        if shipping_form.is_valid() and payment_form.is_valid() :
+            for k, v in shipping_form.cleaned_data.items():
+                shipping[k] = v
+            request.session['shipping'] = shipping  # Move this line before redirect
+            print(shipping)
+            # print(form.cleaned_data)
+            payment['payment'] = payment_form.cleaned_data['payment']
             print(payment)
             return redirect('confirm_order')
-        request.session['payment'] = payment
-    return render(request, 'cart/payment.html', {'form': form})
+        request.session['shipping'] = shipping
+
+    
+    return render(request, 'cart/shipping.html', {'shipping_form': shipping_form, 'payment_form':payment_form})
+
 
 def confirm_order(request):
     if not request.user.is_authenticated:
         return redirect('login')
-    cart = request.session.get('cart')
-    shipping = request.session.get('shipping')
-    payment = request.session.get('payment')
+    
+    cart = request.session.get('cart', {})
+    shipping = request.session.get('shipping', {})
+    payment = request.session.get('payment', {})
     total_cost = 0
-    print('confirm_order', cart)
-    print('confirm_order', shipping)
-    print('confirm_order', payment)
 
     if not cart:
         return redirect('cart')
@@ -231,13 +219,29 @@ def confirm_order(request):
         item['total_price'] = item['price'] * item['quantity']
         total_cost += item['total_price']
 
+    if request.method == 'POST':
+        form = ShippingForm(request.POST)
+        if form.is_valid():
+            # Save the shipping data to session
+            shipping_data = form.cleaned_data
+            request.session['shipping'] = shipping_data
+            print(f"Shipping data saved: {request.session['shipping']}")
+            return redirect('order_complete')
+            
+        else:
+            print(form.errors)  # Log form errors for debugging
+    else:
+        form = ShippingForm(initial=shipping)  # Pre-fill the form with existing shipping data
+
     context = {
+        'form': form,
         'cart': cart,
         'shipping': shipping,
         'payment': payment,
-        'total_cost': total_cost
+        'total_cost': total_cost,
     }
     return render(request, 'cart/confirm_order.html', context)
+
 
 def order_complete(request):
     if not request.user.is_authenticated:
@@ -286,3 +290,4 @@ def order_complete(request):
         request.session['payment'] = {}
         return redirect('index')
     # return render(request, 'cart/confirm_order.html', context)
+

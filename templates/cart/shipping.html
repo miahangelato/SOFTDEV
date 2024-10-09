@@ -1,45 +1,137 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-{% block content %}
+<!-- Include Bootstrap CSS and JS -->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link href="{% static 'css/shipping.css' %}" rel="stylesheet">
 
-<!-- Link to the external CSS file -->
-<link rel="stylesheet" type="text/css" href="{% static 'css/shipping.css' %}">
-
-<div class="shipping-container">
-    <h1>Shipping</h1>
-    <p class="form-description">Fill out the following information</p>
-
-    <form method="POST" class="shipping-form">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        
-        <div class="form-group">
-            <label for="{{ form.address.id_for_label }}">Address:</label>
-            {{ form.address }}
-            {{ form.address.errors }}
+<div class="container wrapper">
+    <div class="row cart-head">
+        <div class="container text-center">
+            <div class="row">
+                <h2>Checkout Process</h2>
+            </div>
+            <div class="row">
+                <div style="display: table; margin: auto;">
+                    <span class="step step_complete">
+                        <a href="#" class="check-bc">Cart</a>
+                        <span class="step_line step_complete"></span>
+                    <span class="step_line backline"></span>
+                    </span>
+                    <span class="step step_complete">
+                        <a href="#" class="check-bc">Checkout</a>
+                        <span class="step_line"></span>
+                    <span class="step_line step_complete"></span>
+                    </span>
+                    <span class="step_thankyou check-bc step_complete">Thank you</span>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label for="{{ form.city.id_for_label }}">City:</label>
-            {{ form.city }}
-            {{ form.city.errors }}
-        </div>
+    <div class="row cart-body">
+        <form class="form-horizontal" method="POST">
+            {% csrf_token %} {{ form.non_field_errors }}
 
-        <div class="form-group">
-            <label for="{{ form.postal_code.id_for_label }}">Postal Code:</label>
-            {{ form.postal_code }}
-            {{ form.postal_code.errors }}
-        </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <!-- SHIPPING METHOD -->
+                <div class="panel panel-info">
+                    <div class="panel-heading">Shipping Information</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <strong>Country:</strong> {{ shipping_form.country }} {{ shipping_form.country.errors }}
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            <label for="{{ form.country.id_for_label }}">Country:</label>
-            {{ form.country }}
-            {{ form.country.errors }}
-        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-xs-12">
+                                <strong>First Name:</strong>
+                                <input type="text" class="form-control" name="first_name" placeholder="Enter your first name" />
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <strong>Last Name:</strong>
+                                <input type="text" class="form-control" name="last_name" placeholder="Enter your last name" />
+                            </div>
+                        </div>
 
-        <button type='submit' class="btn btn-primary">Continue</button>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <strong>Address:</strong> {{ shipping_form.address }} {{ shipping_form.address.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <strong>City:</strong> {{ shipping_form.city }} {{ shipping_form.city.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <strong>Postal Code:</strong> {{ shipping_form.postal_code }} {{ form.postal_code.errors }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <!-- PAYMENT SECTION -->
+                <div class="panel panel-info">
+                    <div class="panel-heading text-center">
+                        <h4>Payment</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked id="payment" name="payment" value="PayPal">
+                                    PayPal
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type='submit' class="btn btn-primary btn-lg">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
     </form>
+</div>
+
+<!-- PayPal Script -->
+<script src="https://www.paypal.com/sdk/js?client-id=AaucYPMaRFUh-_oxSoxOl5wSEZEgHaFUfVqopKBgVd2kabPxvSmW1j6ZZymBkLq7y8ryclXS9YVLQWwB&components=buttons"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{ total_cost }}'
+                    }
+                }]
+            });
+        },
+
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                window.location.href = "{% url 'order_complete' %}";
+            });
+        },
+        style: {
+            layout: 'vertical',
+            shape: 'rect',
+            color: 'silver',
+            height: 40,
+            tagline: false,
+            windowSize: 'small'
+        },
+    }).render('#paypal-button-container');
+</script>
+
 </div>
 
 {% endblock %}

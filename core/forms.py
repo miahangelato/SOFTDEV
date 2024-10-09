@@ -1,5 +1,6 @@
 from django import forms as form
 from django.contrib.auth import get_user_model
+from .models import *
 User = get_user_model()
 
 class UserRegisterForm(form.Form):
@@ -40,3 +41,11 @@ class UserLoginForm(form.Form):
     def get_user(self):
         print(User.objects.get(email=self.cleaned_data['email']))
         return User.objects.get(email=self.cleaned_data['email'])
+    
+
+
+class SellerRegisterForm(form.ModelForm):
+    class Meta:
+        model = Seller
+        fields = ['name', 'phone', 'address', 'shop_name', 'city', 'state', 'zip_code', 'country']
+

@@ -35,7 +35,7 @@ class cartItem(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller_review')
     review = models.TextField()
     rating = models.IntegerField()
     

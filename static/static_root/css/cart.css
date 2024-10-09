@@ -1,0 +1,167 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Cart Heading */
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #000000;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+/* Card Styles */
+.card {
+    border: 0.5px solid #d0d0d0; /* Thinner border */
+    border-radius: 1px; /* Very slight rounding of corners */
+    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.1); /* Smaller shadow size */
+}
+
+/* Card Image */
+.card-img-top {
+    border-radius: 1px 1px 0 0; /* Very slight rounding for the top */
+}
+
+/* Remove hover effect */
+.card:hover {
+    transform: none;
+    box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.1); /* Consistent shadow on hover */
+}
+
+/* Card Body */
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: row; /* Change to row layout */
+    justify-content: space-between;
+}
+
+.card-body img {
+    width: 250px;
+    height: auto;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.product-details p {
+    margin-right: 15px;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+/* Card Footer */
+.card-footer {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-top: 0.5px solid #d0d0d0; /* Thinner top border for footer */
+    display: flex;
+    justify-content: space-between;
+}
+/* Button Styles */
+.btn-primary,
+.btn-danger {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0; /* Set border-radius to 0 for square corners */
+    font-size: 1rem;
+    cursor: pointer; /* Change cursor to pointer */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Ensure proper spacing and alignment */
+}
+
+.btn-primary {
+    background-color: #ffffff; /* White background */
+    color: rgb(0, 0, 0); /* Black text */
+    transition: background-color 0.3s;
+    border: 2px solid #000000; /* Add a border with your desired color (e.g., Bootstrap primary color) */
+    border-radius: 4px; /* Optional: round the corners a bit */
+}
+
+.btn-primary:hover {
+    background-color: #ffffff;
+}
+
+.btn-danger {
+    background-color: #000000;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Total Cost Styles */
+.text-right h4 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.text-right .btn-primary {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+}
+
+/* Empty Cart Text */
+.text-center {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+/* Total Cost Border Styles */
+.total-cost-border {
+    border: 1px solid #d0d0d0; /* Thin border for the total cost section */
+    border-radius: 4px; /* Slight rounding of corners */
+    padding: 15px; /* Padding for some space inside the border */
+    background-color: #fff; /* Background color to make it stand out */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Optional shadow for a subtle effect */
+    width: 20%; /* Width for the total cost section */
+    margin: 20px auto; /* Center with a vertical margin */
+    float: right;
+}
+
+
+/* Total Cost Text */
+.total-cost-border h4 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.8rem; /* Adjust font size if needed */
+    font-weight: 700; /* Bold font for emphasis */
+    color: #28a745; /* Green color for the total cost */
+}
+
+.total-cost-border .btn-primary {
+    font-size: 1.2rem; /* Font size for the button */
+    padding: 10px 20px; /* Padding for the button */
+}

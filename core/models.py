@@ -68,4 +68,30 @@ class User(AbstractBaseUser):
     @property
     def is_admin(self):
         return self.admin
+    
+
+class Seller(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='seller_user')
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    address = models.CharField(max_length=100)
+    shop_name = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=10)
+    country = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField('products.Products', related_name='products', null=True, blank=True)
+    orders = models.ManyToManyField('products.Order', related_name='orders', null=True, blank=True)
+    reviews = models.ManyToManyField('products.Review', related_name='reviews', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True, default='image/default.webp')
+
+    def __str__(self):
+        return str(self.user.email)
 

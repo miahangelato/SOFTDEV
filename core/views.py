@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm, SellerRegisterForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect
 from products.models import Products
+from django.contrib.auth.decorators import login_required
 from products.models import Category
+from products.models import Products, Order, Review
 
 User = get_user_model()
 from django.db.models import Min, Max
+from django.shortcuts import render, get_object_or_404
+from .models import Profile
 
 from django.db.models import Q  # Import Q for more complex queries
 
@@ -61,12 +65,12 @@ def register(request):
 def UserLogin(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST or None)
-        print(form)
+        print(form)  # Debug: Check form data
         if form.is_valid():
             user = form.get_user()
-            print(user)
+            print(user)  # Debug: Check if user is fetched correctly
             login(request, user)
-            return redirect('index')
+            return redirect('index')  # Redirect after successful login
     else:
         form = UserLoginForm()
     return render(request, 'auth/login.html', {'form': form})
@@ -74,4 +78,51 @@ def UserLogin(request):
 def Logout(request):
     logout(request)
     return redirect('login')
+
+
+
+@login_required
+def seller_register(request):
+    # Ensure the user is authenticated
+    if request.method == 'POST':
+        seller_form = SellerRegisterForm(request.POST)
+
+        if seller_form.is_valid():
+            # Get the currently logged-in user
+            user = request.user
+            user.is_seller = True  # Mark user as a seller
+            user.save()
+
+            # Create the Seller profile and link it to the logged-in user
+            seller = seller_form.save(commit=False)
+            seller.user = user  # Link the seller to the user
+            seller.save()
+
+            return redirect('index')  # Redirect to index after registration
+    else:
+        seller_form = SellerRegisterForm()
+
+    return render(request, 'auth/seller_register.html', {'seller_form': seller_form})
+
+
+@login_required
+def profile_view(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    
+    # Get products posted by the logged-in user
+    user_products = Products.objects.filter(seller=request.user)
+    user_orders = Order.objects.filter(user=request.user)
+    user_reviews = Review.objects.filter(user=request.user)
+
+    context = {
+        'profile': profile,
+        'products': user_products,  # Updated to include only products posted by the user
+        'orders': user_orders,
+        'reviews': user_reviews,
+        'profile_picture': profile.profile_picture,
+    }
+    
+    return render(request, 'profile/profile_view.html', context)
+
+
 

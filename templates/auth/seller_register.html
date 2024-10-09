@@ -1,0 +1,7 @@
+<h1>Seller Register</h1>
+<form method="post" class="auth-form">
+    {% csrf_token %} {{ seller_form.as_p }}
+    <div class="auth-btn-container">
+        <button type="submit" class="auth-btn">Register now</button>
+    </div>
+</form>
