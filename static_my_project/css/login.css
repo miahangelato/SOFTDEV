@@ -23,8 +23,6 @@ body,
 }
 
 .auth-card {
-    border: 0.05rem solid #ccc;
-    box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
     width: 100%;
     max-width: 50rem;
@@ -46,8 +44,10 @@ body,
     width: 100%;
     padding: 0;
     /* Remove any padding */
-    box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.1);
-    border-radius: 0;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border: 2px solid black; 
+    padding: 1.5rem;
     margin: 0;
 }
 

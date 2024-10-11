@@ -1,20 +1,19 @@
 .search-form {
-    margin: 1rem auto;
-    margin-bottom: 2rem;
+    margin: 2rem auto;
     display: flex;
     align-items: center;
-    padding: 0.875rem;
+    padding: 0.3rem;
     border-radius: 1rem;
-    background: #f6f6f6;
-    transition: background 0.25s;
+    background: white;
+    /* transition: background 0.25s; */
     max-width: 100rem;
     width: 100%;
     box-sizing: border-box;
 }
 
-.search-form:focus-within {
-    background: #f1f1f1;
-}
+/* .search-form:focus-within {
+    background: #bebebe;
+} */
 
 .search-input-product {
     font-size: 1rem;
@@ -29,9 +28,11 @@
     /* Allow the input to grow */
 }
 
-.search-input-product::placeholder {
+
+
+/* .search-input-product::placeholder {
     color: rgba(0, 0, 0, 0.25);
-}
+} */
 
 .product-cat-text a {
     margin: 0.3rem;
@@ -62,6 +63,13 @@
 }
 
 
+/* Bootstrap shits */
+footer {
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+
+
 /* Set the layout of the products and sidebar as a grid */
 
 .products {
@@ -71,6 +79,11 @@
     margin-top: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+.price-input-group {
+    margin-top: 1rem; /* Add spacing above the price filter */
+    display: flex; /* Ensure the input fields are aligned in a row */
 }
 
 .product-sidebar {
@@ -94,6 +107,27 @@ body {
 }
 
 
+.price-input-form {
+    border-radius: 0.3rem;
+    background: #e7e6e6;
+    border:none;
+    width:50%;
+    margin:0.125rem;
+    text-align: center;
+    color: #333;
+}
+
+.price-filter-btn {
+    background-color: black;
+    border:solid 0.1rem white;
+    
+    margin:0.2rem;
+}
+
+.bi.bi-caret-right-fill {
+    color: white;
+}
+
 /* Product Items styling */
 
 .product-items {
@@ -106,11 +140,10 @@ body {
 }
 
 .product-info {
-    background: #f2f2f2;
+    background: white;
     padding: 2rem;
     border: 0.05rem solid #f2f2f2;
-    border-bottom-left-radius: 0.8rem;
-    border-bottom-right-radius: 0.8rem;
+   
 }
 
 .product-name {
@@ -124,6 +157,7 @@ body {
 }
 
 
+
 /* Grid layout for product items */
 
 @media screen and (max-width: 600px) {
@@ -135,12 +169,7 @@ body {
     }
     .product-sidebar {
         grid-row: 1;
-        /* Sidebar will appear on top */
-        padding: 0.5rem;
-        /* Reduced padding for mobile view */
-        width: 95%;
-        /* Set a specific width (you can adjust this value) */
-        margin: 0 auto;
+    
     }
     .product-items {
         grid-row: 2;
@@ -179,6 +208,15 @@ body {
         /* Increase width on large screens */
     }
 }
+
+@media screen and (max-width: 600px) {
+    }
+    .search-form {
+        width: 90%;
+        /* Allow more space on smaller screens */
+    }
+
+
 
 @media screen and (min-width: 1200px) {
     .product-items {

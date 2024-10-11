@@ -1,0 +1,213 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.chat-tot-area {
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    display: flex;
+    width: 100%;             /* Ensure full width */
+
+}
+
+.chat-icon {
+   color:black;
+   font-size: 2rem;
+   padding-left: 1.2rem;
+}
+
+.nav-con-chat {
+    display: grid;
+    grid-template-columns: 10% 90%; /* 10% for the left column and 90% for the right column */
+    gap: 10px;                      
+    width: 60%;                    
+    border: solid black 0.125rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: auto;              
+    margin-right: auto;
+}
+
+
+.left-column {
+    display: flex; /* Enable Flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.right-column {
+    display: flex;
+    padding-left: 1rem;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+   
+}
+
+
+/* Styling for the chat content */
+
+.chat-content {
+    width: 90%;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+/* Styling for the chat messages */
+
+.chat-messages {
+    border: 1px solid #aaa9a9;
+    border-radius: 5px;
+    padding: 10px;
+    height: 60vh;
+    overflow-y: auto;
+}
+/* Styling for the textarea and send button */
+
+.mssg-input-grid {
+    margin-top: 1rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    display: grid;
+    grid-template-columns: 90% 10%; /* 10% for the left column and 90% for the right column */
+}
+
+.column-input-left {
+    display:flex;
+    align-items: center;
+    justify-content:center ;
+}
+
+.column-input-right {
+    display:flex;
+    align-items: center;
+    justify-content:center ;
+    padding-right: 1rem;
+}
+
+.message-input {
+    width: 95%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    resize: none;
+}
+
+.send-button {
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 4rem;
+    width:50%;
+    height: 40%;
+    font-size: 1.3rem, auto;
+    cursor: pointer;
+}
+
+.otherchat {
+    background-color: #007bff;
+    color: #fff;
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    clear: both;
+    word-wrap: break-word;
+    float: left;
+}
+
+.chat-card {
+    background-color: #e0e0e0;
+    color: #000;
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    clear: both;
+    word-wrap: break-word;
+    float: right;
+}
+
+.username_chat {
+    color: #000;
+}
+
+@media only screen and (max-width: 1024px) {
+    .nav-con-chat {
+        width: 80%; /* Adjust for medium screens */
+        grid-template-columns: 20% 80%; /* More space for right-column */
+    }
+
+    .mssg-input-grid {
+        margin-left: 2rem;
+        margin-right: 2rem;
+        grid-template-columns: 85% 15%;
+    }
+}
+
+/* Small screens: mobile devices (max-width 768px) */
+@media only screen and (max-width: 768px) {
+    .nav-con-chat {
+        width: 90%;
+        grid-template-columns: 15% 85%; 
+    }
+
+    .mssg-input-grid {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        grid-template-columns: 80% 20%; 
+    }
+
+    .chat-messages {
+        height: 50vh; /* Adjust the chat height */
+    }
+
+    .message-input {
+        width: 90%; /* Slightly reduce the width */
+    }
+
+    .send-button {
+        width: 70%; /* Make the button smaller */
+    }
+}
+
+/* Extra small screens: mobile devices (max-width 576px) */
+@media only screen and (max-width: 576px) {
+    .nav-con-chat {
+        width: 95%; /* Full width */
+        grid-template-columns: 25% 75%; 
+    }
+
+    .mssg-input-grid {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        grid-template-columns: 75% 25%;
+    }
+
+    .chat-messages {
+        height: 45vh; 
+    }
+
+    .message-input {
+        width: 85%; 
+    }
+
+    .send-button {
+        width: 60%; 
+        font-size: 1rem; /* Adjust the font size */
+    }
+}
+
+/* Large screens: desktops (min-width 1200px) */
+@media only screen and (min-width: 1200px) {
+    .nav-con-chat {
+        width: 50%;
+    }
+
+    .mssg-input-grid {
+        grid-template-columns: 92% 8%;
+    }
+
+    .chat-messages {
+        height: 70vh;
+    }
+}

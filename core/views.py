@@ -19,22 +19,35 @@ from django.db.models import Q  # Import Q for more complex queries
 
 
 def index(request):
+    # Get price range from the database
     price_range = Products.objects.aggregate(min_price=Min('price'), max_price=Max('price'))
-    min_price = price_range['min_price']
-    max_price = price_range['max_price']
+    
+    # Set defaults to None initially (so placeholders show when form is empty)
+    min_price = request.GET.get('min_price') or None
+    max_price = request.GET.get('max_price') or None
+    
+    # Use DB min/max prices only if user input is not provided
+    price_min = min_price if min_price is not None else price_range['min_price']
+    price_max = max_price if max_price is not None else price_range['max_price']
+    
     category_list = Category.objects.all()
     category = request.GET.get('category') 
-    price_min = request.GET.get('minPrice', min_price)
-    price_max = request.GET.get('maxPrice', max_price)
     search_query = request.GET.get('search')
+    
+    # Fetch all products initially
     products = Products.objects.all()
-    if category:
-        products = products.filter(category=category)
+    
+    # Apply search query first, regardless of category
     if search_query:
         products = products.filter(
             Q(name__icontains=search_query) |
             Q(description__icontains=search_query)
         )
+    # Apply category filter only if no search query is provided
+    elif category:
+        products = products.filter(category=category)
+
+    # Apply price filter
     if price_min or price_max:
         products = products.filter(price__gte=price_min, price__lte=price_max)
 
@@ -43,11 +56,11 @@ def index(request):
         'category_list': category_list,
         'category': category,
         'selected_category': category,
-        'search_query': search_query,   
-        'price_min': price_min,
-        'price_max': price_max,
-        'min_price': min_price,
-        'max_price': max_price,
+        'search_query': search_query,
+        'price_min': min_price,
+        'price_max': max_price,
+        'min_price': price_range['min_price'],
+        'max_price': price_range['max_price'],
     }
     return render(request, 'index.html', context)
 

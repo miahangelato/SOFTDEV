@@ -52,21 +52,33 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Gammerce</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand" href="#!" >Gammerce</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                <li class="nav-item"></li><a class="nav-link active" aria-current="page" href="{%url 'seller_register'%}">Seller register</a></ul>
-            <li class="nav-item"></li><a class="nav-link active" aria-current="page" href="{%url 'profile'%}">My Profile</a></ul>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'seller_register' %}">Seller Register</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'profile' %}">My Profile</a></li>
             </ul>
-            <form class="d-flex">
+
+            <!-- Search Form -->
+            <form method="GET" action="{% url 'index' %}" class="search-form border border-2 border-dark py-1 px-3 me-2" >
+                <input type="text" name="search" class="search-input-product" placeholder="Search for products..." value="{{ search_query|default_if_none:'' }}">
+                {% if selected_category %}
+                    <input type="hidden" name="category" value="{{ selected_category }}">
+                {% endif %}
                 <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    <i class="bi bi-search"></i>
                 </button>
             </form>
+
+            <button class="btn btn-outline-dark" type="submit">
+                <i class="bi-cart-fill me-1"></i>
+                Cart
+                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+            </button>
         </div>
     </div>
 </nav>

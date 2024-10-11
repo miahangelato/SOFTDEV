@@ -1,50 +1,44 @@
-{%extends 'base.html'%} {%load static %}
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Product Listing - Gammerce</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/productList.css" rel="stylesheet" />
-</head>
+{% block head %}
+   
+    <link href="{% static 'css/productList.css' %}" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
 
-<body>
-    <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Product Listings</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Find the best products here</p>
-            </div>
-
-
-        </div>
-    </header>
-
     <!-- Section-->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
+    <section class="pt-1 py-5">
+        <div class="container px-4 px-lg-2 mt-5">
             <div class="row">
                 <!-- Sidebar for Categories -->
-                <div class="col-md-3">
+                <div class="col-md-3 mb-4 mb-md-0">
                     <div class="product-sidebar">
-                        <h4>Categories</h4>
-
+                        <h4 style="color:white; font-style: bold;">Categories</h4>
                         <div class="sidebar-hr" style="margin-bottom: 0.3rem;"></div>
                         {% for category in category_list %}
                         <p class="product-cat-text">
-                            <a href="{% url 'index' %}?category={{ category.id|urlencode }}" class="{% if selected_category == category %}active{% endif %}">{{ category }}</a>
+                            <a href="{% url 'index' %}?category={{ category.id|urlencode }}" class="{% if selected_category == category %}active{% endif %}">
+                                {{ category }}
+                            </a>
                         </p>
                         <div class="sidebar-hr"></div>
                         {% endfor %}
+                        <form method="GET" action="{% url 'index' %}">
+                            <div class="price-input-group">
+                                <input type="number" name="min_price" class="price-input-form" 
+                                    placeholder="Min price" value="{{ price_min|default:'' }}">
+                                {% if selected_category %}
+                                <input type="hidden" name="category" value="{{ selected_category }}">
+                                {% endif %}
+                                <input type="number" name="max_price" class="price-input-form" 
+                                 placeholder="Max price" value="{{ price_max|default:'' }}">
+                                <button class="price-filter-btn" type="submit"><i class="bi bi-caret-right-fill"></i></button>
+                            </div>
+                        </form>
                     </div>
+                
                 </div>
 
                 <!-- Product Items -->
@@ -53,20 +47,19 @@
                         {% for product in products %}
                         <div class="col mb-5">
                             <div class="card h-100">
-                                <!-- Product image-->
+                                <!-- Product image -->
                                 <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" style="height: 200px; object-fit: cover;" />
-                                <!-- Product details-->
+                                <!-- Product details -->
                                 <div class="card-body p-4">
                                     <div class="text-center">
-                                        <!-- Product name-->
                                         <h5 class="fw-bolder">{{ product.name }}</h5>
-                                        <!-- Product seller -->
                                         <h6 class="text-black-50 mt-0">Seller: {{ product.seller.username }}</h6>
-                                        <!-- Product price-->
-                                        <div class="d-flex justify-content-center p-price"><span>Price</span><span>${{ product.price }}</span></div>
+                                        <div class="d-flex justify-content-center p-price">
+                                            <span>Price: </span><span>${{ product.price }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- Product actions-->
+                                <!-- Product actions -->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'viewProduct' product.id %}">View Product</a></div>
                                 </div>
@@ -80,11 +73,5 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer-->
-
-
-</body>
 {% endblock %}
-
-</html>
+    
