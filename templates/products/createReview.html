@@ -1,7 +1,27 @@
-{% extends 'base.html' %}{%load static%} {% block content %}
-<h1>Review form</h1>
-<form method="post" class="create-product-form" enctype="multipart/form-data">
-    {% csrf_token %} {{ form.as_p }}
-    <button type='submit' class="btn btn-primary">Post Review</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/createReview.css' %}">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header text-center">
+                    <h2 class="mb-0" style="color: white;">Write a Review</h2> 
+                </div>
+                <div class="card-body">
+                    <form method="post" class="create-product-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-grid">
+                            <button type='submit' class="btn btn-lg btn-block" >Submit Review</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

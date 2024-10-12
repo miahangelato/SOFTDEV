@@ -1,0 +1,35 @@
+.create-product-form {
+    background-color: #ffffff; /* Subtle background color */
+}
+
+.create-product-form input, 
+.create-product-form textarea, 
+.create-product-form select {
+    border-radius: 0.25rem;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 1px; 
+    width: 100%; 
+}
+
+
+.create-product-form button {
+    background-color: black ; 
+    color: white ; 
+}
+.create-product-form button:hover {
+    background-color: #000000;
+    color: white;
+}
+
+.card-header {
+    background-color: black ;
+}
+
+.container {
+    margin-bottom: 50px;
+}
+
+.card-header h2 {
+    color: white ;
+}
