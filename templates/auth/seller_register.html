@@ -1,7 +1,24 @@
-<h1>Seller Register</h1>
-<form method="post" class="auth-form">
-    {% csrf_token %} {{ seller_form.as_p }}
-    <div class="auth-btn-container">
-        <button type="submit" class="auth-btn">Register now</button>
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chat App with Sidebar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="{% static 'css/sellerRegis.css' %}" rel="stylesheet" />
+</head>
+
+    <h1>Seller Register</h1>
+    <div class="sell-reg-cont">
+            <form method="post" class="seller-auth-form">
+                {% csrf_token %} {{ seller_form.as_p }}
+                <div class="seller-btn-container">
+                    <button type="submit" class="seller-btn">Register now</button>
+                </div>
+            </form>
     </div>
-</form>
+
+
+</html>

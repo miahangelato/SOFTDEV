@@ -1,11 +1,18 @@
 {% extends 'base.html' %} {% block content %}
+
+<!-- Back to Products Button -->
+<div class="col-md-12 mb-3">
+    <a href="{% url 'index' %}" class="btn btn-success m-3 border-dark bg-dark">Back to Products</a>
+</div>
 <!-- Product section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
+
             <!-- Product Image -->
             <div class="col-md-6">
-                <img src="{{ product.image.url }}" class="card-img-top mb-5 mb-md-0" alt="{{ product.name }}" style="max-height: 600px; object-fit: cover;" />
+                <img src="{{ product.image.url }}" class="card-img-top mb-5 mb-md-0" alt="{{ product.name }}"
+                    style="max-height: 600px; object-fit: cover;" />
             </div>
 
             <!-- Product Details -->
@@ -17,34 +24,37 @@
                 <p class="lead">{{ product.description }}</p>
                 <p><strong>Seller:</strong> {{ product.seller.username }}</p>
 
-                <div class="d-flex">
-                    <form method="POST" action="{% url 'addToCart' product.id %}" class="d-inline">
+                <!-- Add to Cart and Review Buttons in the same line -->
+                <div class="d-flex align-items-center mb-3">
+                    <form method="POST" action="{% url 'addToCart' product.id %}" class="d-inline me-3">
                         {% csrf_token %}
                         <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
                     </form>
+
+                    <form method="POST" action="{% url 'review' product.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-dark flex-shrink-0">Review</button>
+                    </form>
                 </div>
 
-                <!-- Back to Products Button -->
-                <a href="{% url 'index' %}" class="btn btn-primary mt-3">Back to Products</a>
-
+                {% if request.user == product.seller %}
                 <!-- Update Product Button (For Seller) -->
-                <a href="{% url 'updateProduct' product.id %}" class="btn btn-secondary mt-3">Update Product</a>
+                <a href="{% url 'updateProduct' product.id %}" class="btn btn-success mt-3 border-dark bg-dark">Update Product</a>
 
                 <!-- Delete Product Button (For Seller) -->
                 <form method="POST" action="{% url 'deleteProduct' product.id %}" class="d-inline">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger mt-3">Delete Product</button>
+                    <button type="submit" class="btn btn-success mt-3 border-dark bg-dark">Delete Product</button>
                 </form>
+                {% endif %}
 
-                <!-- Review Button -->
-                <form method="POST" action="{% url 'review' product.id %}" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success mt-3">Review</button>
-                </form>
-                <a href="{% url 'chats'%}?user={{product.seller.username}}"><button class="btn btn-warning mt-3">Chat with Seller</button></a>
+                <!-- Chat with Seller Button -->
+                <a href="{% url 'chats'%}?user={{product.seller.username}}">
+                    <button class="btn btn-success mt-3 border-dark bg-dark">Chat with Seller</button>
+                </a>
             </div>
         </div>
     </div>
@@ -58,13 +68,26 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">{{ foo.user.username }}</h5>
-                <p class="card-text">{{ foo.review }}</p>
-                <p class="card-text">Rating: {{ foo.rating }}/5</p>
+                 <!-- Starshit sa rating -->
+                 <p class="card-text">
+                    Rating:
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= foo.rating %}
+                            <i class="bi bi-star-fill" style="color: gold;"></i> 
+                        {% else %}
+                            <i class="bi bi-star"style="color: gold;"></i>  
+                        {% endif %}
+                    {% endfor %}
+                </p>
 
+                <p class="card-text">{{ foo.review }}</p>
+                
+                {% if request.user == foo.user  %}
                 <form method="POST" action="{% url 'deleteReview' foo.id %}" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Delete Review</button>
                 </form>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
